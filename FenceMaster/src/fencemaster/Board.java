@@ -183,8 +183,8 @@ public class Board implements Piece, Cloneable{
      * or finds itself surrounded by nodes not in the queue returning true.
      * Depth first search.
      */
-    private boolean explore(Hex[] neighbours, PriorityQueue<Hex> queue, 
-                                              PriorityQueue<Hex> visited, int colour) {
+    private boolean explore(Hex[] neighbours, PriorityQueue<Hex> queue,
+                            PriorityQueue<Hex> visited, int colour) {
 
         int i;
         Hex currentHex;
@@ -309,57 +309,57 @@ public class Board implements Piece, Cloneable{
                 (hex.x == 0 && hex.y == 2 * this.dimension - 2) ||
                 (hex.x == this.dimension - 1 && hex.y == 2 * this.dimension - 2);
     }
-    
+
     /**
      * Checks whether a given set of coordinates is part of this board.
      * @param row
      * @param col
      * @return True if the coordinates are valid, false if not
      */
-    boolean isLegal(int row, int col) 
+    boolean isLegal(int row, int col)
     {
-    	if (row < 0 || col < 0) {
-    		return false;
-    	}
-    	if (row >= this.rows.length) {
-    		return false;
-    	}
-    	if (col >= this.rows[row].length) {
-    		return false;
-    	}
-    	return true;
+        if (row < 0 || col < 0) {
+            return false;
+        }
+        if (row >= this.rows.length) {
+            return false;
+        }
+        if (col >= this.rows[row].length) {
+            return false;
+        }
+        return true;
     }
-    
+
     Board applyMove(int row, int col, int colour) {
-    	if (!isLegal(row, col)) {
-    		System.err.println("Illegal move in applyMove function, sort that out on the quickfast.");
-    	}
-    	this.rows[row][col] = new Hex(row,col,colour,this);
-    	return this;
+        if (!isLegal(row, col)) {
+            System.err.println("Illegal move in applyMove function, sort that out on the quickfast.");
+        }
+        this.rows[row][col] = new Hex(row,col,colour,this);
+        return this;
     }
-    
+
     @Override
     protected Board clone() {
-    	Board newboard = new Board(this.dimension);
-    	int i, j;
-    	for (i = 0; i < this.rows.length; i++) {
-    		for (j = 0; j < this.rows[i].length; j++) {
-    			if (this.rows[i][j].colour != EMPTY) {
-    				newboard.rows[i][j].colour = this.rows[i][j].colour;
-    			}
-    		}
-    	}
-		return newboard;
+        Board newboard = new Board(this.dimension);
+        int i, j;
+        for (i = 0; i < this.rows.length; i++) {
+            for (j = 0; j < this.rows[i].length; j++) {
+                if (this.rows[i][j].colour != EMPTY) {
+                    newboard.rows[i][j].colour = this.rows[i][j].colour;
+                }
+            }
+        }
+        return newboard;
     }
-    
+
     // debug function
     public void output() {
-		int i, j;
-		for (i = 0; i < this.rows.length; i++) {
-			for (j = 0; j < this.rows[i].length; j++) {
-				System.out.print(this.rows[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
+        int i, j;
+        for (i = 0; i < this.rows.length; i++) {
+            for (j = 0; j < this.rows[i].length; j++) {
+                System.out.print(this.rows[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }
