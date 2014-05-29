@@ -1,0 +1,43 @@
+FENCEMASTER
+By Kemble Song (584999) & Nicholas Poulton (585075)
+
+Part B:
+Our player class fencemaster.Kembles has:
+  - Methods implemented from the Player interface:
+    - getWinner()
+    - init()
+    - makeMove()
+    - opponentMove()
+    - printBoard()
+  - Additional methods:
+    - testWin() : used by the getWinner() method to call the win detection algorithms in
+                  fencemaster.Board class.
+    - minimax() : our implementation of the minimax search tree algorithm with alpha-beta
+                  pruning.
+    - utility() : our utility function used by minimax() to evaluate board states and 
+                  returns a score based on the following metrics:
+                  - countOccupiedEdges() : awards points for occupied edges; good for tripod
+                                           construction.
+                  - countAdjacentPieces() : awards points for linking adjacent pieces together;
+                                            good for both tripod and loop construction.
+                  - cornerSucks() : negative points for corner pieces; they are generally
+                                    wasted moves with no constructive benefit.
+
+How makeMove() works:
+Essentially we do a minimax search for each move, with a variable depth of the search based on
+how many empty spaces are left on the board. At the start of the game where the opponent's move
+matters very little, we do not need to go any deeper than the first move; the opening moves 
+should be relatively the same for most games and would simply follow the base values in the
+utility function, which favors edge control and corner evasion. As the game goes on, the 
+opponent's move will matter more and so the depth of search increases. This allows the program
+to run faster. Our minimax function implements alpha-beta pruning, which will reduce the
+amount of branches that need to be explored as the game goes on.
+
+Evaluation function:
+As detailed above, utility() is a function of 3 variables:
+a = countOccupiedEdges()
+b = countAdjacentPieces()
+c = cornerSucks()
+utility() = 4*a + b + 3*c
+These weights were tweaked during the testing of the agent and appears to produce the best
+results.
